@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo $1
+
+HEX_CODE=$(echo $(grep "$1"  hex_codes.txt) | cut -d '=' -f 2)
+
+IP=$(cat ip.txt)
+echo $IP
+echo $HEX_CODE
+
+echo -e $HEX_CODE > /dev/udp/$IP/56700
+
+# I would like to add a bit that creates a status variable in a text file or something. SO if you do not put in a vartiable it automaticall opts for the other one that what is saved  
