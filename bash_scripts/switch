@@ -2,12 +2,30 @@
 
 echo $1
 
-HEX_CODE=$(echo $(grep "$1"  hex_codes.txt) | cut -d '=' -f 2)
+IP="192.168.86.28"
 
-IP=$(cat ip.txt)
+test="""3100001402000000
+d073d50013370000
+0000000000000201
+0000000000000000
+66000000005555ff
+ffffffac0d000000
+00"""
+
+off="\x2a\x00\x00\x34\xb4\x3c\xf0\x84\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x0b\x00\x00\x00\x00\x00\x00\x00\x00\x75\x00\x00\x00\x00\x00\xe8\x03\x00\x00"
+
+#if [ $1==on ]; then
+#    HEX_CODE=$off
+#    echo "this shouldnt show up with off"
+#elif [ $1=='off' ]; then 
+#else
+#    HEX_CODE=$off
+#fi
+
+
 echo $IP
 echo $HEX_CODE
 
-echo -e $HEX_CODE > /dev/udp/$IP/56700
+echo -e $test > /dev/udp/$IP/56700
 
 # I would like to add a bit that creates a status variable in a text file or something. SO if you do not put in a vartiable it automaticall opts for the other one that what is saved  
