@@ -30,15 +30,18 @@ reserved_message = "0"*16
 # payload 
 payload_reserved = "0" * 8
 # hue goes on a scale of 1-65535. for green we will use 21845
-hue = bin(51225 ^ 1 << 16)[3:]
-# all ones for the 16 bits for max saturation. TODO Add functionality to adjust with integers and percentages 
-saturation = "1" * 16
 
-# same thing for brightness 
-brightness = "1" * 16
+hue = bin(32767 ^ 1 << 16)[3:]
+# all ones for the 16 bits for max saturation. TODO Add functionality to adjust with integers and percentages 
+saturation_value = 70
+saturation = bin(65535 * saturation_value // 100 ^ 1 << 16)[3:]
+
+# same thing for brightness 1 - 65535
+brightness_value = 50
+brightness = bin(65535 * brightness_value // 100 ^ 1 << 16)[3:]
 
 # Kelvin - need to look into 
-kelvin = bin(3500 ^ 1 << 16)[3:] # + "0" * 8
+kelvin = bin(3800 ^ 1 << 16)[3:] # + "0" * 8
 kelvin = kelvin[len(kelvin) // 2:] + kelvin[:len(kelvin) // 2] + "0" * 8
 
 # number of miliseconds over which to perform the transition - set to 1024 for now because it is easy 
@@ -58,4 +61,6 @@ for i in final:
 
 
 # send_packet(bytes.fromhex(hex(int("".join(packet),base=2))[2:]))
+# print(hue)
+# print(int(hue, base =2 ))
 send_packet(off)
