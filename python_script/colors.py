@@ -1,4 +1,3 @@
-import struct
 import socket
 
 
@@ -21,7 +20,7 @@ def get_100(value):
     if value > 100:
         value = 100
 
-    return 65535 * value // 100 ^ 1 << 16
+    return socket.ntohs(65535 * value // 100) ^ 1 << 16
 
 
 def get_hue(value):
@@ -123,11 +122,10 @@ if __name__ == "__main__":
             bytes.fromhex(
                 hex(
                     finalize_packet(
-                        header(), payload(hue=180, saturation=100, brightness=20)
+                        header(), payload(hue=300, saturation=0, brightness=100)
                     )
                 )[2:]
             )
         )
     )
 
-    # send_packet(bytes.fromhex(hex(int("".join(packet),base=2))[2:]))
