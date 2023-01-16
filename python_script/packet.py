@@ -1,7 +1,6 @@
 import socket
 
-
-def get_100(value):
+def get_100(value: int) -> int:
     """This function is used to return the equivalent 16 bit representation of a scale of 0 - 100 
     used for both brightness, and saturation"""
     if value < 0:
@@ -12,7 +11,7 @@ def get_100(value):
     return socket.ntohs(65535 * value // 100) ^ 1 << 16
 
 
-def get_hue(value):
+def get_hue(value: int) -> int:
     """Takes in a value between 1-360 to represent a hue in hsl form and converts it to the correct binary and returning it with little endian"""
     if value <= 1:
         value = 1
@@ -22,7 +21,7 @@ def get_hue(value):
     return socket.ntohs(65535 * value // 360) ^ 1 << 16
 
 
-def finalize_packet(header, payload):
+def finalize_packet(header: int, payload: int) -> int:
     holder = 1
     holder = _concatenate_bits(holder, header)
     holder = _concatenate_bits(holder, payload)
@@ -32,7 +31,7 @@ def finalize_packet(header, payload):
     return holder
 
 
-def _concatenate_bits(original_bits, new_bits):
+def _concatenate_bits(original_bits: int, new_bits: int) -> int:
     "Adds the new bits onto the end of the original bits. We ignore the first 3 of the new bits just cause that is what we use for placeholders"
 
     result = original_bits
@@ -43,7 +42,7 @@ def _concatenate_bits(original_bits, new_bits):
     return result
 
 
-def payload(hue=120, saturation=100, brightness=100, kelvin=3800, transition=1024):
+def payload(hue: int =120, saturation: int = 100, brightness:int=100, kelvin:int=3800, transition:int=1024) -> int:
 
     # payload reserved
     holder = 1
@@ -70,7 +69,7 @@ def payload(hue=120, saturation=100, brightness=100, kelvin=3800, transition=102
     return holder
 
 
-def header():
+def header() -> int:
     # binary field
     holder = 1
 
@@ -120,6 +119,9 @@ class Packet:
     def __init__(self) -> None:
         with open("ip.txt", "r") as f:
             self.ip = f.read()
+        self.hue = 300 
+        self.saturation = 0 
+        self.brightness = 100 
 
     def send_packet(self, code, port=56700):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -142,19 +144,4 @@ class Packet:
 
 
 if __name__ == "__main__":
-    from send_packet import send_packet
-
     x = Packet()
-    x.change_color(hue=0, saturation=0, brightness=100)
-
-    # send_packet(
-    #     (
-    #         bytes.fromhex(
-    #             hex(
-    #                 finalize_packet(
-    #                     header(), payload(hue=300, saturation=0, brightness=100)
-    #                 )
-    #             )[2:]
-    #         )
-    #     )
-    # )
