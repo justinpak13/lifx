@@ -1,0 +1,52 @@
+Screen {
+    layout: grid;
+    grid-size: 2 3;
+    grid-columns: 1fr 3fr;
+    grid-rows: 1fr 2fr 1fr;
+}
+
+#label {
+    height: 3;
+    content-align: center middle;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    align: center middle;
+    border: solid whitesmoke;
+    column-span: 2;
+}
+
+#inputs {
+    column-span: 2;
+}
+
+.input {
+    width: 3fr;
+    height:auto;
+}
+
+.button {
+    width: 1fr;
+    height:auto;
+    margin: 0 2;
+}
+
+#colors{
+    layout:grid;
+    grid-size: 13;
+    width: 1fr;
+    height: 100%;
+}
+
+.swatch{
+    height:100%;
+    content-align:center middle;
+    text-style: bold;
+}
+
+.box {
+    height: 100%;
+    border: solid whitesmoke;
+}
