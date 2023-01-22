@@ -1,6 +1,6 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Static, Checkbox, Button, Input
-from textual.containers import Horizontal, Vertical
+from textual.containers import Horizontal, Vertical, Container
 from packet import Packet
 
 class LifxApp(App):
@@ -11,43 +11,48 @@ class LifxApp(App):
 
 
     def compose(self) -> ComposeResult:
-        """Create child widgets for the app."""
         yield Header()
         yield Footer()
-        self.color_widget  = Static("This is a test of colors")
-        yield self.color_widget
+        yield Static("Current Color", classes="box", id = "current_color")
         
-        yield Vertical(
-            Static("Test of the hue"), Input(placeholder="Test placeholder", classes = "container")
-        )
+        self.pallete = [Static("", classes="swatch") for _ in range(13)]
+        yield Container(
+            Horizontal(
+                *self.pallete,
+                id="colors"
+            ), 
+        classes="box") 
 
-        
-        for i in range(0, 361, 12):
-            stripe = Button(f"{str(i)}")
-            stripe.styles.background = f"hsl({str(i)},50%,30%)"
-            stripe.styles.padding=0
-            yield stripe 
+        yield Container(
+            Vertical(
+                Static("Hue"),
+                Horizontal(
+                    Input(classes="input"),
+                    Button("Increase", classes="button"),
+                    Button("Decrease",classes="button"),
+                ),
+                Static("\nSaturation"),
+                Horizontal(
+                    Input(classes="input"),
+                    Button("Increase", classes="button"),
+                    Button("Decrease",classes="button"),
+                ),
+                Static("\nBrightness"),
+                Horizontal(
+                    Input(classes="input"),
+                    Button("Increase", classes="button"),
+                    Button("Decrease",classes="button"),
+                ),
+             ), classes ="box", id="inputs")
 
-        self.saturation_widget   = Static("This is a test of saturation")
-        yield self.saturation_widget 
-        self.brightness_widget   = Static("This is a test of brightness")
-        yield self.brightness_widget 
-
-
-
-        focused_checkbox = Checkbox()
-        focused_checkbox.focus()
-        yield Horizontal(
-            Static("focused: ", classes="label"), focused_checkbox, classes="container"
-        )
+        yield Checkbox(classes="container", id="switch")
 
     def on_mount(self) -> None:
-        # Color widget styes 
-        self.color_widget.styles.background = "hsl(150,0%,0%)"
-        self.color_widget.styles.width = "100%"
-        self.color_widget.styles.height = "20%"
-        self.color_widget.styles.padding = 1
-        self.color_widget.styles.margin = 1
+        DEGREE_INTERVAL = 30
+        for index, widget in enumerate(self.pallete):
+            degrees = index * DEGREE_INTERVAL
+            widget.update(f"{degrees}") 
+            widget.styles.background = f"hsl({degrees},42.9%,49.4%)"
 
 
     def action_turn_on(self) -> None:
