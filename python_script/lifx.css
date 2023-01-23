@@ -22,7 +22,8 @@ Screen {
 .controls {
     height: auto;
     width: auto;
-    align: center middle;
+    content-align: center middle;
+    background: aqua;
 }
 
 .inputs {
@@ -36,7 +37,8 @@ Screen {
     width: 120%;
     height: auto;
     margin: 0 1;
-    align: center middle
+    align: center middle;
+    border: dashed green;
 }
 
 .button {

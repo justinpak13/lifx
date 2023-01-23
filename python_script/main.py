@@ -35,12 +35,16 @@ class LifxApp(App):
                 Vertical(
                     Static("Hue\n", classes="label"),
                     Control(),
-                    classes="inputs"
                 ),
-                Static("Saturation\n", classes="label"),
-                Control(),
-                Static("Brightness\n", classes="label"),
-                Control(),
+                Vertical(
+
+                    Static("Saturation\n", classes="label"),
+                    Control(),
+                ),
+                Vertical(
+                    Static("Brightness\n", classes="label"),
+                    Control(),
+                )
              ), classes ="inputs")
 
         yield Checkbox(classes="container", id="switch")
