@@ -6,9 +6,31 @@ Screen {
 }
 
 .label {
-    height: 3;
+    content-align: center middle
+}
+
+.control_widgets {
+    width: 1fr;
+    height: 100%;
+    border: yellow;
     content-align: center middle;
-    margin: 1 1;
+}
+
+#controls {
+    column-span: 2;
+    height: 100%;
+    border: solid whitesmoke;
+}
+
+#inputs {
+    border: dashed;
+    height: 100%;
+}
+
+#inputs>Static {
+    width: auto;
+    height: 100%;
+    margin-right: 1;
 }
 
 #switch {
@@ -17,35 +39,6 @@ Screen {
     align: center middle;
     border: solid whitesmoke;
     column-span: 2;
-}
-
-.controls {
-    height: auto;
-    width: auto;
-    content-align: center middle;
-    background: aqua;
-}
-
-.inputs {
-    column-span: 2;
-    height: 100%;
-    border: solid whitesmoke;
-    content-align: center middle
-}
-
-.entry {
-    width: 120%;
-    height: auto;
-    margin: 0 1;
-    align: center middle;
-    border: dashed green;
-}
-
-.button {
-    width: auto;
-    height: auto;
-    margin: 0 1;
-    content-align: center middle;
 }
 
 #colors {

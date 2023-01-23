@@ -5,10 +5,9 @@ from packet import Packet
 
 class Control(Static):
     def compose(self) -> ComposeResult:
-        yield Vertical(
-            Input("value", classes="entry"),
-            Button("Increase", classes="button"),
-            Button("Decrease",classes="button"), classes="controls" )
+            yield Input("value", classes="entry"),
+            yield Button("Increase", classes="button"),
+            yield Button("Decrease",classes="button"),  
 
 class LifxApp(App):
     """A Textual app to manage lifx lights."""
@@ -31,21 +30,28 @@ class LifxApp(App):
         classes="pallete") 
 
         yield Container(
-            Vertical(
+            Horizontal(
                 Vertical(
                     Static("Hue\n", classes="label"),
                     Control(),
+                    classes="control_widgets"
                 ),
-                Vertical(
 
+                Vertical(
                     Static("Saturation\n", classes="label"),
-                    Control(),
+                    Static("Hue\n", classes="label"),
+                    Static("Hue\n", classes="label"),
+                    classes="control_widgets"
                 ),
+
                 Vertical(
                     Static("Brightness\n", classes="label"),
-                    Control(),
-                )
-             ), classes ="inputs")
+                    Static("Hue\n", classes="label"),
+                    Static("Hue\n", classes="label"),
+                    classes="control_widgets"
+                ),
+                id="inputs"
+             ), id="controls")
 
         yield Checkbox(classes="container", id="switch")
 
