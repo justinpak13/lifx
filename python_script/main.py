@@ -3,12 +3,6 @@ from textual.widgets import Header, Footer, Static, Checkbox, Button, Input
 from textual.containers import Horizontal, Vertical, Container
 from packet import Packet
 
-class Control(Static):
-    def compose(self) -> ComposeResult:
-            yield Input("value", classes="entry"),
-            yield Button("Increase", classes="button"),
-            yield Button("Decrease",classes="button"),  
-
 class LifxApp(App):
     """A Textual app to manage lifx lights."""
 
@@ -23,6 +17,7 @@ class LifxApp(App):
         
         self.pallete = [Static("", classes="swatch") for _ in range(13)]
         yield Container(
+            Static("Hue Scale", classes="label"),
             Horizontal(
                 *self.pallete,
                 id="colors"
@@ -32,22 +27,26 @@ class LifxApp(App):
         yield Container(
             Horizontal(
                 Vertical(
-                    Static("Hue\n", classes="label"),
-                    Control(),
+                    Static("[b]Hue[/b]\n", classes="label"),
+                    Input("0", classes="inputs"),
+                    Button("Increase", classes="button"),
+                    Button("Decrease",classes="button"),
                     classes="control_widgets"
                 ),
 
                 Vertical(
                     Static("Saturation\n", classes="label"),
-                    Static("Hue\n", classes="label"),
-                    Static("Hue\n", classes="label"),
+                    Input("100", classes="inputs"),
+                    Button("Increase", classes="button"),
+                    Button("Decrease",classes="button"),
                     classes="control_widgets"
                 ),
 
                 Vertical(
                     Static("Brightness\n", classes="label"),
-                    Static("Hue\n", classes="label"),
-                    Static("Hue\n", classes="label"),
+                    Input("100", classes="inputs"),
+                    Button("Increase", classes="button"),
+                    Button("Decrease",classes="button"),
                     classes="control_widgets"
                 ),
                 id="inputs"
