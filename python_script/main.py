@@ -9,7 +9,6 @@ class LifxApp(App):
     BINDINGS = [("o", "turn_on", "Turn on lifx lights"),
                 ("p", "turn_off", "Turn off lifx lights")]
 
-
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
@@ -29,8 +28,8 @@ class LifxApp(App):
                 Vertical(
                     Static("[b]Hue[/b]\n", classes="label"),
                     Input("0", classes="inputs"),
-                    Button("Increase", classes="button"),
-                    Button("Decrease",classes="button"),
+                    Button("\u2191", classes="button"),
+                    Button("\u2193",classes="button"),
                     classes="control_widgets"
                 ),
 

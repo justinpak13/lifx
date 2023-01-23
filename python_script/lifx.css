@@ -2,7 +2,7 @@ Screen {
     layout: grid;
     grid-size: 3 2;
     grid-columns: 1fr 1fr;
-    grid-rows: 1fr 0.7fr;
+    grid-rows: 1fr 0.65fr;
 }
 
 .label {
@@ -13,7 +13,7 @@ Screen {
 .control_widgets {
     width: 1fr;
     height: 100%;
-    border: yellow;
+    border: blank;
     content-align: center middle;
 }
 
