@@ -1,16 +1,17 @@
 Screen {
     layout: grid;
-    grid-size: 2 3;
-    grid-columns: 1fr 3fr;
-    grid-rows: 1fr 2fr 1fr;
+    grid-size: 3 2;
+    grid-columns: 1fr 1fr;
+    grid-rows: 1fr 1fr;
 }
 
-#label {
+.label {
     height: 3;
     content-align: center middle;
+    margin: 1 1;
 }
 
-.container {
+#switch {
     height: 100%;
     width: 100%;
     align: center middle;
@@ -18,19 +19,31 @@ Screen {
     column-span: 2;
 }
 
-#inputs {
-    column-span: 2;
+.controls {
+    height: auto;
+    width: auto;
+    align: center middle;
 }
 
-.input {
-    width: 3fr;
+.inputs {
+    column-span: 2;
+    height: 100%;
+    border: solid whitesmoke;
+    content-align: center middle
+}
+
+.entry {
+    width: 120%;
     height: auto;
+    margin: 0 1;
+    align: center middle
 }
 
 .button {
-    width: 1fr;
+    width: auto;
     height: auto;
-    margin: 0 2;
+    margin: 0 1;
+    content-align: center middle;
 }
 
 #colors {
@@ -46,7 +59,14 @@ Screen {
     text-style: bold;
 }
 
+.pallete {
+    height: 100%;
+    column-span: 2;
+    border: solid whitesmoke
+}
+
 .box {
     height: 100%;
     border: solid whitesmoke;
+    content-align: center middle
 }

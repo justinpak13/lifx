@@ -3,6 +3,13 @@ from textual.widgets import Header, Footer, Static, Checkbox, Button, Input
 from textual.containers import Horizontal, Vertical, Container
 from packet import Packet
 
+class Control(Static):
+    def compose(self) -> ComposeResult:
+        yield Vertical(
+            Input("value", classes="entry"),
+            Button("Increase", classes="button"),
+            Button("Decrease",classes="button"), classes="controls" )
+
 class LifxApp(App):
     """A Textual app to manage lifx lights."""
 
@@ -13,7 +20,7 @@ class LifxApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        yield Static("Current Color", classes="box", id = "current_color")
+        yield Static("Current Color", classes="box")
         
         self.pallete = [Static("", classes="swatch") for _ in range(13)]
         yield Container(
@@ -21,29 +28,20 @@ class LifxApp(App):
                 *self.pallete,
                 id="colors"
             ), 
-        classes="box") 
+        classes="pallete") 
 
         yield Container(
             Vertical(
-                Static("Hue"),
-                Horizontal(
-                    Input(classes="input"),
-                    Button("Increase", classes="button"),
-                    Button("Decrease",classes="button"),
+                Vertical(
+                    Static("Hue\n", classes="label"),
+                    Control(),
+                    classes="inputs"
                 ),
-                Static("\nSaturation"),
-                Horizontal(
-                    Input(classes="input"),
-                    Button("Increase", classes="button"),
-                    Button("Decrease",classes="button"),
-                ),
-                Static("\nBrightness"),
-                Horizontal(
-                    Input(classes="input"),
-                    Button("Increase", classes="button"),
-                    Button("Decrease",classes="button"),
-                ),
-             ), classes ="box", id="inputs")
+                Static("Saturation\n", classes="label"),
+                Control(),
+                Static("Brightness\n", classes="label"),
+                Control(),
+             ), classes ="inputs")
 
         yield Checkbox(classes="container", id="switch")
 
