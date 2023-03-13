@@ -121,7 +121,8 @@ class Packet:
             self.ip = f.read()
         self.hue = 300 
         self.saturation = 0 
-        self.brightness = 100 
+        self.brightness = 100
+        self.status = 0
 
     def send_packet(self, code, port=56700):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -134,6 +135,7 @@ class Packet:
     def off(self):
         off_packet = b"\x2a\x00\x00\x34\xb4\x3c\xf0\x84\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x0b\x00\x00\x00\x00\x00\x00\x00\x00\x75\x00\x00\x00\x00\x00\xe8\x03\x00\x00"
         self.send_packet(off_packet)
+        self.status = 0 
 
     def change_color(self, hue=300, saturation=0, brightness=100):
         self.send_packet(
@@ -145,3 +147,4 @@ class Packet:
 
 if __name__ == "__main__":
     x = Packet()
+    print(x)

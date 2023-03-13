@@ -12,7 +12,7 @@ class LifxApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        yield Static("Current Color", classes="box")
+        yield Static(f"Current Color", classes="box")
         
         self.pallete = [Static("", classes="swatch") for _ in range(13)]
         yield Container(
@@ -59,17 +59,16 @@ class LifxApp(App):
             degrees = index * DEGREE_INTERVAL
             widget.update(f"{degrees}") 
             widget.styles.background = f"hsl({degrees},42.9%,49.4%)"
+        self.packet_controller = Packet()
 
 
     def action_turn_on(self) -> None:
         """An action to turn on the light."""
-        x = Packet()
-        x.on()
+        self.packet_controller.on()
 
     def action_turn_off(self) -> None:
         "An action to turn off the light"
-        x = Packet()
-        x.off()
+        self.packet_controller.off()
 
 if __name__ == "__main__":
     app = LifxApp(css_path="lifx.css")
