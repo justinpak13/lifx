@@ -1,7 +1,7 @@
 from packet import Packet
 
-if __name__ == "__main__":
-    with open("ip.txt") as f:
+def main(ip_txt_file_path):
+    with open(ip_txt_file_path) as f:
         ip_list = f.readlines()
 
     light_control = Packet(ip_list[0])
@@ -68,3 +68,6 @@ if __name__ == "__main__":
             print("That was not a valid command")
 
         print(light_control)
+
+if __name__ == "__main__":
+    main("/Users/justinpak/Programs/lifx/python_script/ip.txt")
