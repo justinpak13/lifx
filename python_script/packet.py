@@ -131,6 +131,31 @@ class Packet:
         Brightness: {self.brightness}
         """)
 
+    def adjust_hue(self, value):
+        if value > 360:
+            self.hue = 360
+        elif value < 0:
+            self.hue = 0 
+        else:
+            self.hue = value 
+        
+
+    def adjust_saturation(self, value):
+        if value > 100:
+            self.saturation = 100
+        elif value < 0:
+            self.saturation = 0 
+        else:
+            self.saturation = value 
+
+    def adjust_brightness(self, value):
+        if value > 100:
+            self.brightness = 100
+        elif value < 0:
+            self.brightness = 0 
+        else:
+            self.brightness = value 
+
     def send_packet(self, code, port=56700):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.sendto(bytes(code), (self.ip, port))
@@ -145,14 +170,15 @@ class Packet:
         self.send_packet(off_packet)
         self.status = 0 
 
-    def change_color(self, hue=300, saturation=0, brightness=100):
+    def change_color(self):
         self.send_packet(
             bytes.fromhex(
-                hex(finalize_packet(header(), payload(hue, saturation, brightness)))[2:]
+                hex(finalize_packet(header(), payload(self.hue, self.saturation, self.brightness)))[2:]
             )
         )
 
 
 if __name__ == "__main__":
     x = Packet()
-    print(x)
+    x.on()
+    x.change_color()

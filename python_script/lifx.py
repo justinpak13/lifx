@@ -43,10 +43,24 @@ if __name__ == "__main__":
         elif options[0] == "p":
             light_control.off()
         elif options[0] == "h":
-            light_control.change_color(0,0,80)
+            if options[1].isnumeric():
+                light_control.adjust_hue(int(options[1]))
+                light_control.change_color()
+            else:
+                print("That was an invalid selection for Hue")
         elif options[0] == "b":
+            if options[1].isnumeric():
+                light_control.adjust_brightness(int(options[1]))
+                light_control.change_color()
+            else:
+                print("That was an invalid selection for Brightness")
             pass 
         elif options[0] == "s":
+            if options[1].isnumeric():
+                light_control.adjust_saturation(int(options[1]))
+                light_control.change_color()
+            else:
+                print("That was an invalid selection for Saturation")
             pass 
         elif options[0] == "q":
             break
